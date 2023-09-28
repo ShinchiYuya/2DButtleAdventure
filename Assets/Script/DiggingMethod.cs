@@ -5,7 +5,7 @@ using System.Linq;
 public class DiggingMethod : MonoBehaviour
 {
     /* 設定する値 */
-    [SerializeField,Header("縦横のサイズ ※必ず奇数にすること")] public int max;        //縦横のサイズ ※必ず奇数にすること
+    [SerializeField, Header("縦横のサイズ ※必ず奇数にすること")] public int max;        //縦横のサイズ ※必ず奇数にすること
     public GameObject wall;    //壁用オブジェクト
     public GameObject floor;    //床用オブジェクト
     public GameObject start;   //スタート地点に配置するオブジェクト
@@ -46,9 +46,7 @@ public class DiggingMethod : MonoBehaviour
         goalObj.transform.parent = transform;
     }
 
-    /*
-    *スタート地点の取得
-    */
+    /* スタート地点の取得 */
     int[] GetStartPosition()
     {
         //ランダムでx,yを設定
@@ -65,9 +63,7 @@ public class DiggingMethod : MonoBehaviour
         return new int[] { randx, randy };
     }
 
-    /*
-    *マップ生成
-    */
+    /* マップ生成 */
     int[] MakeDungeonMap(int[] _startPos)
     {
         //スタート位置配列を複製
@@ -96,9 +92,7 @@ public class DiggingMethod : MonoBehaviour
         return tmpStartPos;
     }
 
-    /*
-    *移動可能な座標のリストを取得する
-    */
+    /* 移動可能な座標のリストを取得する */
     Dictionary<int, int[]> GetPosition(int[] _startPos)
     {
         //可読性のため座標を変数に格納
@@ -135,8 +129,7 @@ public class DiggingMethod : MonoBehaviour
             for (int j = -1; j <= max; j++)
             {
                 //範囲外、または壁の場合に壁オブジェクトを生成する
-                if (isOutOfRange(i, j)
-                    || walls[i, j] == 0)
+                if (isOutOfRange(i, j) || walls[i, j] == 0)
                 {
                     GameObject wallObj = Instantiate(wall, new Vector3(i, j, 0), Quaternion.identity) as GameObject;
                     wallObj.transform.parent = transform;
