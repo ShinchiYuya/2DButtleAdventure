@@ -5,7 +5,7 @@ using System.Linq;
 public class DiggingMethod : MonoBehaviour
 {
     /* 設定する値 */
-    [SerializeField, Header("縦横のサイズ ※必ず奇数にすること")] public int max;        //縦横のサイズ ※必ず奇数にすること
+    [SerializeField, Header("縦横のサイズ ※必ず奇数にすること")] public int max; //縦横のサイズ ※必ず奇数にすること
     public GameObject wall;    //壁用オブジェクト
     public GameObject floor;    //床用オブジェクト
     public GameObject start;   //スタート地点に配置するオブジェクト
