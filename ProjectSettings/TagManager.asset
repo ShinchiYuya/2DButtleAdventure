@@ -6,6 +6,10 @@ TagManager:
   tags:
   - GameManager
   - Ground
+  - Start
+  - goal
+  - Wall
+  - Floor
   layers:
   - Default
   - TransparentFX

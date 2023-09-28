@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     
     int _maxJump = 2; // 最大ジャンプ数
     int _damage; // ダメージ
-    float _h = 0;
+    float _h = 0; // 向き
     bool _isGrounded = true; //地面判定
     bool isDead = false; // 死亡フラグ
     bool isRunning = true; // 走ってるかフラグ
