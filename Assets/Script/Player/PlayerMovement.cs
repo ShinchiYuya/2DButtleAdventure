@@ -4,20 +4,31 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float _speed; // プレイヤーのスピード
     [SerializeField] float _jumpForce; //プレイヤーのジャンプ力
-    [SerializeField] int _maxJumpCount; // 最大ジャンプ数
     [SerializeField] float _jumpPower; // プレイヤーがジャンプしたときに加わる強さ
+    [SerializeField] int _jumpCount; // プレイヤーのジャンプカウント
+    [SerializeField] int damageAmount; // ダメージアモウント
+    //[SerializeField] AudioClip _jumpAudio; // ジャンプしたときの音
+    //[SerializeField] AudioClip _runAudio; // 走っているときの音
+    //[SerializeField] AudioClip _deathAudio; // 死んだときの音
     
-    int _jumpCount;
-    bool _isGrounded = true;
+    int _maxJump = 2; // 最大ジャンプ数
+    int _damage; // ダメージ
+    float _h = 0;
+    bool _isGrounded = true; //地面判定
+    bool isDead = false; // 死亡フラグ
+    bool isRunning = true; // 走ってるかフラグ
+    bool isJumpping = false; // ジャンプしているかのフラグ
 
+    SpriteRenderer _sprtRdr;
+    Vector3 transPos;
     Rigidbody2D _rb2d;
     Animator _anim;
-    AudioSource _audio;
+    AudioSource audioSource;
 
     void Start()
     {
         _anim = GetComponent<Animator>();
-        _audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         _rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -29,27 +40,55 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        //それぞれの方向の入力を検出する
-        float h = Input.GetAxis("Horizontal");
-        //入力に応じでプレイヤーを動かす
-        Vector2 vector2 = new Vector2(h, 0) * _speed ;
-        _rb2d.velocity = vector2;
+        _h = Input.GetAxis("Horizontal");
+        //_sprtRdr.flipX = _h < 0;
+        Vector2 velocity = new Vector2(_h * _speed, _rb2d.velocity.y);
+        _rb2d.velocity = velocity;
+
+        // 走っているかどうかをアニメーションに伝える
+        //this._anim.SetBool("isRunning", Mathf.Abs(_h) > 0 && _isGrounded);
+
+        if (Mathf.Abs(_h) > 0 && _isGrounded)
+        {
+            /*if (_runAudio != null && audioSource != null && !audioSource.isPlaying)
+            {
+                isRunning = true;
+                audioSource.PlayOneShot(_runAudio); // 走っている時のサウンド再生
+            }*/
+        }
+        else
+        {
+            /*if (audioSource != null)
+            {
+                isRunning = false;
+                audioSource.Stop();
+            }*/
+        }
     }
 
     void Jump()
     {
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)))
+        //this._anim.SetTrigger("isJumpping");
+
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W)))
         {
-            if (_jumpCount < _maxJumpCount)
+            if (_isGrounded || _jumpCount < _maxJump)
             {
-                // プレイヤーの現在の向きを取得
-                Vector2 _playerDirection = Vector2.right * transform.localScale.x; 
-                // ジャンプ力を適用する方向ベクトルを計算
-                Vector2 _jumpDirection = Vector2.up + _playerDirection * _jumpPower;
-                // 力を加える
-                _rb2d.AddForce(_jumpDirection * _jumpForce, ForceMode2D.Impulse);
+                _rb2d.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
                 _jumpCount++;
-                _isGrounded =false;
+                _isGrounded = false;
+
+                /*if (_jumpAudio != null && audioSource != null) // ジャンプ時のサウンド再生
+                {
+                    isJumpping = true;
+                    audioSource.PlayOneShot(_jumpAudio);
+                    Debug.Log("aaa0");
+                }
+                else
+                {
+                    isJumpping = false;
+                    audioSource.Stop();
+                }*/
             }
         }
     }
