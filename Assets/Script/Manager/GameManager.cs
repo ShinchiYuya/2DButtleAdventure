@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] static float _timer;
+    [SerializeField] public static float _timer;
     [SerializeField] float _maxTime;
     [SerializeField] Text _textCountDown;
     [SerializeField] PlayerHP playerHP;
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         Timer();
     }
 
-    void Timer()
+    public void Timer()
     {
         if (_textCountDown != null && _timer > 0f)
         {
@@ -41,6 +41,12 @@ public class GameManager : MonoBehaviour
         }
         else if (_timer <= 0)
         {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (var enemy in enemies)
+            {
+                Destroy(enemy);
+            }
+
             playerHP.InflictDamage();
             _textCountDown.text = "END";
         }
