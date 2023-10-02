@@ -10,6 +10,7 @@ TagManager:
   - goal
   - Wall
   - Floor
+  - SlashingAttack
   layers:
   - Default
   - TransparentFX
