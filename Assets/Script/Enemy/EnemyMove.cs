@@ -17,7 +17,7 @@ public class EnemyMove : MonoBehaviour
 
     void Update()
     {
-        distance = Vector2.Distance(transform.position, target.transform.position);
+        distance = Vector3.Distance(transform.position, target.transform.position);
         Debug.Log(distance);
 
         if (distance < disPlayer)
