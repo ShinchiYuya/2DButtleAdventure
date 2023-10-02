@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class EnemyHP : MonoBehaviour
 {
@@ -34,11 +32,6 @@ public class EnemyHP : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         scoreManager = FindObjectOfType<ScoreManager>();
-    }
-
-    void Update()
-    {
-        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

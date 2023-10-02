@@ -10,7 +10,6 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] int currentHP;
     [SerializeField] AudioClip deathClip;
     [SerializeField] string targetSceneName;
- 
     [SerializeField] float stepTime = 2f;
 
     int damageAmount = 2147483647;

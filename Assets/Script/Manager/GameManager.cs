@@ -45,5 +45,4 @@ public class GameManager : MonoBehaviour
             _textCountDown.text = "END";
         }
     }
-
 }
